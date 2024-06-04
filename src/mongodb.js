@@ -11,7 +11,6 @@ async function connectToMongoDB(req, res, next) {
     await client.connect();
     console.log("Conectandose a MongoDB");
     const db = client.db(DATABASE_NAME).collection(COLLECTION_NAME);
-    return db;
     req.db = db;
     next()
   } catch (error) {
