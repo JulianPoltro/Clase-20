@@ -3,16 +3,17 @@ const { MongoClient } = require("mongodb");
 
 const URI = process.env.MONGODB_URLSTRING;
 const client = new MongoClient(URI);
+const DATABASE_NAME = process.env.DATABASE_NAME;
+const COLLECTION_NAME = process.env.COLLECTION_NAME;
 
-// const connectToMongoDB = async () => {
-//   await client.connection();
-// };
-
-async function connectToMongoDB() {
+async function connectToMongoDB(req, res, next) {
   try {
     await client.connect();
     console.log("Conectandose a MongoDB");
-    return client;
+    const db = client.db(DATABASE_NAME).collection(COLLECTION_NAME);
+    return db;
+    req.db = db;
+    next()
   } catch (error) {
     console.error("Error al conectar a MongoDB");
     return null;
@@ -21,8 +22,10 @@ async function connectToMongoDB() {
 
 async function disconnectFromMongoDB() {
   try {
-    await client.close();
-    console.log("Desconectandose a MongoDB");
+    if(client){
+      await client.close();
+      console.log("Desconectandose a MongoDB");
+    }
   } catch (error) {
     console.error("Error al desconectar a MongoDB");
   }
