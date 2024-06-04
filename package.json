@@ -1,0 +1,19 @@
+{
+  "name": "2",
+  "version": "1.0.0",
+  "description": "Instalación del proyecto:",
+  "main": "index.js",
+  "scripts": {
+    "start": "node --watch server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongodb": "^6.7.0",
+    "morgan": "^1.10.0",
+    "zod": "^3.23.8"
+  }
+}
